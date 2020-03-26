@@ -1,3 +1,5 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +9,6 @@ using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.Tokens.Jwt;
 
 namespace DatingApp.API.Controllers
 {
@@ -50,7 +51,7 @@ namespace DatingApp.API.Controllers
             if (userFromRepo == null)
                 return Unauthorized();
 
-            var Claims = new[]
+            var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name.ToLower(), userFromRepo.Username)
@@ -69,7 +70,7 @@ namespace DatingApp.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var toke = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return Ok(new {
                 token = tokenHandler.WriteToken(token)
