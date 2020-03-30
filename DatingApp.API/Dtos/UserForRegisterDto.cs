@@ -8,6 +8,6 @@ namespace DatingApp.API.Dtos
         public string Username { get; set; }
 
         [Required]
-        public string Passaword { get; set; }
+        public string Password { get; set; }
     }
 }
